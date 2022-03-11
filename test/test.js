@@ -157,11 +157,9 @@ describe('Basic', function () {
     }
 
     const s = utils.lagrangeInterpolation(sShares.slice(0, 5), [1, 2, 3, 4, 5].map(i => new BN(i)))
-    const key = ec.keyFromPrivate(Buffer.from(x.toString(16), 'hex'))
-    // const sig = key.sign(msgHash)
-    // console.log(sig.r.toString(16), sig.s.toString(16), 'sign')
-    // console.log(r.toString(16), s.toString(16))
 
+    // ECDSA verify should pass
+    const key = ec.keyFromPublic({ x: y.getX().toString(16), y: y.getY().toString(16) })
     assert(key.verify(msgHash, { r: r.toString(16), s: s.toString(16) }))
   })
 })
