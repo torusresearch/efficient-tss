@@ -59,6 +59,7 @@ describe('Basic', function () {
   })
   it('should simulate a threshold signature with nine parties', function () {
     // assume nine servers, t = 4, threshold to sign is t + 1 = 5
+    // note that some special unicode characters were used for clarity..
 
     // create (t,n)-sharing of private key x
     const x = new BN(utils.generatePrivate())
@@ -103,13 +104,13 @@ describe('Basic', function () {
     const α_jCommitments = αShares.map(share => {
       return ec.curve.g.mul(share)
     })
-    const gα_ikPoints = α_jCommitments.map(pt => {
+    const gˆα_ikPoints = α_jCommitments.map(pt => {
       return pt.mul(k)
     })
     const β_jCommitments = βShares.map(share => {
       return ec.curve.g.mul(share)
     })
-    const yα_igβ_iPoints = β_jCommitments.map((pt, i) => {
+    const yˆα_i·gˆβ_iPoints = β_jCommitments.map((pt, i) => {
       return pt.add(y.mul(αShares[i]))
     })
 
@@ -131,13 +132,13 @@ describe('Basic', function () {
 
     // check equality of (2t,n)-interpolated values vs (t,n)-interpolated values
     const µ = utils.lagrangeInterpolation(µShares, [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => new BN(i)))
-    const gµ = ec.curve.g.mul(µ)
-    const gαk = utils.lagrangePointInterpolation(gα_ikPoints.slice(0, 5), [1, 2, 3, 4, 5].map(i => new BN(i)))
-    assert.equal(gµ.getX().toString(16), gαk.getX().toString(16))
+    const gˆµ = ec.curve.g.mul(µ)
+    const gˆαk = utils.lagrangePointInterpolation(gˆα_ikPoints.slice(0, 5), [1, 2, 3, 4, 5].map(i => new BN(i)))
+    assert.equal(gˆµ.getX().toString(16), gˆαk.getX().toString(16))
     const λ = utils.lagrangeInterpolation(λShares, [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => new BN(i)))
-    const gλ = ec.curve.g.mul(λ)
-    const yα_igβ_i = utils.lagrangePointInterpolation(yα_igβ_iPoints.slice(0, 5), [1, 2, 3, 4, 5].map(i => new BN(i)))
-    assert.equal(gλ.getX().toString(16), yα_igβ_i.getX().toString(16))
+    const gˆλ = ec.curve.g.mul(λ)
+    const yˆα_i·gˆβ_i = utils.lagrangePointInterpolation(yˆα_i·gˆβ_iPoints.slice(0, 5), [1, 2, 3, 4, 5].map(i => new BN(i)))
+    assert.equal(gˆλ.getX().toString(16), yˆα_i·gˆβ_i.getX().toString(16))
 
     // store precomputes
     const kInverseShares = []
