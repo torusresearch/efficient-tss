@@ -24,7 +24,7 @@ describe('Basic', function () {
       [s1, s2, s3],
       [new BN(1), new BN(2), new BN(3)]
     )
-    assert.equal(interpolated.toString(), xIntercept)
+    assert.equal(interpolated.toString(), xIntercept.toString())
   })
   it('should generate t polynomial sharing and reconstruct the secret using a 2t polynomial', function () {
     const xIntercept = new BN(10)
@@ -38,7 +38,7 @@ describe('Basic', function () {
       [s1, s2, s3, s4, s5],
       [new BN(1), new BN(2), new BN(3), new BN(4), new BN(5)]
     )
-    assert.equal(interpolated.toString(), xIntercept)
+    assert.equal(interpolated.toString(), xIntercept.toString())
   })
   it('should interpolate in the exponent', function () {
     const xIntercept = new BN(10)
@@ -57,7 +57,7 @@ describe('Basic', function () {
     assert.equal(y.getY().toString(16), interpolatedPoint.getY().toString(16))
     assert.equal(y.getX().toString(16), interpolatedPoint.getX().toString(16))
   })
-  it.only('should simulate a threshold signature with nine parties', function () {
+  it('should simulate a threshold signature with nine parties', function () {
     // assume nine servers, t = 4, threshold to sign is t + 1 = 5
 
     // create (t,n)-sharing of private key x
