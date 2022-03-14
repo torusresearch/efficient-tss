@@ -18,7 +18,7 @@ const getShare = function (polynomial, index) {
   let res = new BN(0)
   for (let i = 0; i < polynomial.length; i++) {
     const term = polynomial[i].mul((new BN(index)).pow(new BN(i)))
-    res = res.add(term)
+    res = res.add(term.umod(ec.curve.n))
   }
   return res
 }

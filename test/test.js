@@ -82,7 +82,7 @@ describe('Basic', function () {
     }
 
     // calculate r
-    const r = ec.curve.g.mul(k).getX()
+    const r = ec.curve.g.mul(k).getX().umod(ec.curve.n)
 
     // create (t,n)-sharing of α and β
     const α = new BN(utils.generatePrivate())
