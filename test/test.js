@@ -60,6 +60,7 @@ describe('Basic', function () {
   it('should simulate a threshold signature with nine parties', function () {
     // assume nine servers, t = 4, threshold to sign is t + 1 = 5
     // note that some special unicode characters were used for clarity..
+    // normal ECDSA signature: (r,s), where k is random, r = g^k, e = Hash(msg), y = g^x, s = kInv(e + rx)
 
     // create (t,n)-sharing of private key x
     const x = new BN(utils.generatePrivate())
