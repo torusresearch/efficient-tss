@@ -9,7 +9,7 @@ const generatePolynomial = function (degree, xIntercept) {
     res.push(xIntercept)
     i++
   }
-  for (; i < degree; i++) {
+  for (; i <= degree; i++) {
     res.push(new BN(generatePrivate()))
   }
   return res
@@ -22,6 +22,7 @@ const getShare = function (polynomial, index) {
   }
   return res
 }
+
 const lagrangeInterpolation = function (shares, nodeIndex) {
   if (shares.length !== nodeIndex.length) {
     return null
